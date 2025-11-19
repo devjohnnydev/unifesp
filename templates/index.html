@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}TeleAcolhe - Apoio M\u00e9dico Acess\u00edvel{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Apoio M\u00e9dico Acess\u00edvel para Todos</h1>
+            <p class="hero-subtitle">
+                O TeleAcolhe oferece orienta\u00e7\u00f5es iniciais baseadas em intelig\u00eancia artificial 
+                para pessoas em regi\u00f5es com baixa cobertura m\u00e9dica.
+            </p>
+            <div class="hero-actions">
+                <a href="{{ url_for('symptoms_form') }}" class="btn btn-primary btn-lg">
+                    <i data-feather="clipboard" aria-hidden="true"></i>
+                    Descrever Meus Sintomas
+                </a>
+                <a href="{{ url_for('how_it_works') }}" class="btn btn-secondary btn-lg">
+                    <i data-feather="info" aria-hidden="true"></i>
+                    Como Funciona
+                </a>
+            </div>
+            
+            <div class="disclaimer-box" role="note">
+                <i data-feather="alert-triangle" aria-hidden="true"></i>
+                <p><strong>Importante:</strong> Este servi\u00e7o oferece apenas orienta\u00e7\u00f5es iniciais e <strong>N\u00c3O substitui</strong> consulta m\u00e9dica presencial.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Como Funciona (Resumo) -->
+<section class="section section-light">
+    <div class="container">
+        <h2 class="section-title">Como Funciona</h2>
+        <p class="section-subtitle">Simples, r\u00e1pido e acess\u00edvel</p>
+        
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-icon">
+                    <i data-feather="edit-3" aria-hidden="true"></i>
+                </div>
+                <h3>1. Descreva Seus Sintomas</h3>
+                <p>Preencha um formul\u00e1rio simples sobre seus sintomas, dura\u00e7\u00e3o e intensidade.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-icon">
+                    <i data-feather="cpu" aria-hidden="true"></i>
+                </div>
+                <h3>2. An\u00e1lise Inteligente</h3>
+                <p>Nossa IA analisa suas informa\u00e7\u00f5es e gera diagn\u00f3sticos diferenciais prov\u00e1veis.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-icon">
+                    <i data-feather="file-text" aria-hidden="true"></i>
+                </div>
+                <h3>3. Receba Orienta\u00e7\u00f5es</h3>
+                <p>Veja poss\u00edveis condi\u00e7\u00f5es, recomenda\u00e7\u00f5es de cuidados e quando buscar ajuda.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Benef\u00edcios -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Por Que Usar o TeleAcolhe?</h2>
+        
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <i data-feather="users" aria-hidden="true"></i>
+                <h3>Acess\u00edvel</h3>
+                <p>Gratuito e dispon\u00edvel 24/7 para qualquer pessoa com internet.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <i data-feather="zap" aria-hidden="true"></i>
+                <h3>R\u00e1pido</h3>
+                <p>Receba orienta\u00e7\u00f5es em poucos minutos, sem filas de espera.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <i data-feather="shield" aria-hidden="true"></i>
+                <h3>Confi\u00e1vel</h3>
+                <p>Baseado em conhecimento m\u00e9dico e diretrizes de sa\u00fade reconhecidas.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <i data-feather="smartphone" aria-hidden="true"></i>
+                <h3>Mobile-First</h3>
+                <p>Otimizado para celulares e conex\u00f5es lentas.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Final -->
+<section class="section section-cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Pronto para Come\u00e7ar?</h2>
+            <p>Descreva seus sintomas e receba orienta\u00e7\u00f5es em minutos.</p>
+            <a href="{{ url_for('symptoms_form') }}" class="btn btn-primary btn-lg">
+                <i data-feather="arrow-right" aria-hidden="true"></i>
+                Iniciar Consulta
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

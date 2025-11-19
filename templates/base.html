@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TeleAcolhe - Apoio a diagn\u00f3sticos diferenciais via IA para regi\u00f5es com baixa cobertura m\u00e9dica">
+    <title>{% block title %}TeleAcolhe - Apoio M\u00e9dico Acess\u00edvel{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Aviso de emerg\u00eancia -->
+    <div class="emergency-banner" role="alert" aria-live="polite">
+        <div class="container">
+            <p>
+                <i data-feather="alert-circle" aria-hidden="true"></i>
+                <strong>Em caso de emerg\u00eancia:</strong> Ligue 192 (SAMU) ou 193 (Bombeiros)
+            </p>
+        </div>
+    </div>
+
+    <!-- Navega\u00e7\u00e3o -->
+    <header class="header" role="banner">
+        <nav class="navbar container" role="navigation" aria-label="Navega\u00e7\u00e3o principal">
+            <div class="navbar-brand">
+                <a href="{{ url_for('index') }}" class="logo" aria-label="TeleAcolhe - P\u00e1gina inicial">
+                    <i data-feather="heart" aria-hidden="true"></i>
+                    <span>TeleAcolhe</span>
+                </a>
+            </div>
+            
+            <button class="navbar-toggle" id="navbarToggle" aria-label="Abrir menu de navega\u00e7\u00e3o" aria-expanded="false" aria-controls="navbarMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="navbar-menu" id="navbarMenu" role="menubar">
+                <li role="none"><a href="{{ url_for('index') }}" role="menuitem">In\u00edcio</a></li>
+                <li role="none"><a href="{{ url_for('how_it_works') }}" role="menuitem">Como Funciona</a></li>
+                <li role="none"><a href="{{ url_for('about') }}" role="menuitem">Sobre</a></li>
+                <li role="none"><a href="{{ url_for('symptoms_form') }}" class="btn-nav" role="menuitem">Descrever Sintomas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Conte\u00fado principal -->
+    <main role="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Rodap\u00e9 -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Sobre o TeleAcolhe</h3>
+                    <p>Plataforma de apoio a diagn\u00f3sticos diferenciais com foco em acessibilidade e impacto social.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Links \u00dateis</h3>
+                    <ul>
+                        <li><a href="{{ url_for('how_it_works') }}">Como Funciona</a></li>
+                        <li><a href="{{ url_for('about') }}">Sobre</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Emerg\u00eancia</h3>
+                    <ul>
+                        <li><strong>SAMU:</strong> 192</li>
+                        <li><strong>Bombeiros:</strong> 193</li>
+                        <li><strong>CVV:</strong> 188</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Importante</h3>
+                    <p class="disclaimer">Esta plataforma <strong>N\u00c3O substitui</strong> consulta m\u00e9dica presencial. Sempre procure um profissional de sa\u00fade.</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 TeleAcolhe. Desenvolvido com <i data-feather="heart" style="width: 16px; height: 16px; color: #e74c3c;" aria-hidden="true"></i> para comunidades.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Inicializar Feather Icons
+        feather.replace();
+        
+        // Toggle do menu mobile
+        const navbarToggle = document.getElementById('navbarToggle');
+        const navbarMenu = document.getElementById('navbarMenu');
+        
+        if (navbarToggle && navbarMenu) {
+            navbarToggle.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                navbarMenu.classList.toggle('active');
+                this.classList.toggle('active');
+            });
+        }
+    </script>
+    
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

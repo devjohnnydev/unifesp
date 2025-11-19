@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Resultados da An\u00e1lise - TeleAcolhe{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="results-container">
+            <div class="results-header">
+                <h1>Resultados da An\u00e1lise</h1>
+                <p>Baseado nas informa\u00e7\u00f5es fornecidas, veja abaixo os diagn\u00f3sticos diferenciais prov\u00e1veis.</p>
+            </div>
+
+            <!-- Aviso de buscar atendimento imediato -->
+            {% if diagnosis.seek_immediate_care %}
+            <div class="alert alert-danger" role="alert">
+                <i data-feather="alert-octagon" aria-hidden="true"></i>
+                <div>
+                    <h3>Aten\u00e7\u00e3o: Procure Atendimento M\u00e9dico Imediatamente</h3>
+                    <p>Com base nos sintomas descritos, recomendamos que voc\u00ea procure atendimento m\u00e9dico presencial o mais r\u00e1pido poss\u00edvel.</p>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Diagn\u00f3sticos Diferenciais -->
+            <div class="section-block">
+                <h2>
+                    <i data-feather="activity" aria-hidden="true"></i>
+                    Poss\u00edveis Condi\u00e7\u00f5es
+                </h2>
+                
+                <div class="diagnoses-grid">
+                    {% for diag in diagnosis.diagnoses %}
+                    <div class="diagnosis-card severity-{{ diag.severity }}">
+                        <div class="diagnosis-header">
+                            <h3>{{ diag.name }}</h3>
+                            <span class="probability-badge probability-{{ diag.probability }}">
+                                Probabilidade: {{ diag.probability }}
+                            </span>
+                        </div>
+                        <p class="diagnosis-description">{{ diag.description }}</p>
+                        <div class="severity-indicator">
+                            <span class="severity-label">Severidade:</span>
+                            <span class="severity-value severity-{{ diag.severity }}">{{ diag.severity }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Recomenda\u00e7\u00f5es -->
+            <div class="section-block">
+                <h2>
+                    <i data-feather="check-circle" aria-hidden="true"></i>
+                    Recomenda\u00e7\u00f5es
+                </h2>
+                <ul class="recommendations-list">
+                    {% for recommendation in diagnosis.recommendations %}
+                    <li>
+                        <i data-feather="check" aria-hidden="true"></i>
+                        {{ recommendation }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Sinais de Alerta -->
+            {% if diagnosis.warning_signs %}
+            <div class="section-block">
+                <h2>
+                    <i data-feather="alert-triangle" aria-hidden="true"></i>
+                    Sinais de Alerta
+                </h2>
+                <p class="warning-intro">Procure atendimento m\u00e9dico imediatamente se apresentar:</p>
+                <ul class="warning-list">
+                    {% for warning in diagnosis.warning_signs %}
+                    <li>
+                        <i data-feather="alert-circle" aria-hidden="true"></i>
+                        {{ warning }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <!-- Conselho Geral -->
+            {% if diagnosis.general_advice %}
+            <div class="section-block advice-block">
+                <h2>
+                    <i data-feather="info" aria-hidden="true"></i>
+                    Conselho Geral
+                </h2>
+                <p>{{ diagnosis.general_advice }}</p>
+            </div>
+            {% endif %}
+
+            <!-- Disclaimer -->
+            <div class="disclaimer-box disclaimer-important" role="note">
+                <i data-feather="alert-triangle" aria-hidden="true"></i>
+                <div>
+                    <h3>Importante: Este N\u00c3O \u00e9 um Diagn\u00f3stico M\u00e9dico</h3>
+                    <p>
+                        As informa\u00e7\u00f5es fornecidas s\u00e3o apenas orienta\u00e7\u00f5es iniciais baseadas em intelig\u00eancia artificial 
+                        e <strong>N\u00c3O substituem</strong> uma consulta m\u00e9dica presencial com um profissional de sa\u00fade qualificado.
+                    </p>
+                    <p>
+                        <strong>Sempre procure um m\u00e9dico</strong> para obter um diagn\u00f3stico preciso e tratamento adequado.
+                    </p>
+                </div>
+            </div>
+
+            <!-- A\u00e7\u00f5es -->
+            <div class="results-actions">
+                <a href="{{ url_for('symptoms_form') }}" class="btn btn-secondary">
+                    <i data-feather="rotate-ccw" aria-hidden="true"></i>
+                    Nova Consulta
+                </a>
+                <a href="{{ url_for('index') }}" class="btn btn-outline">
+                    <i data-feather="home" aria-hidden="true"></i>
+                    Voltar ao In\u00edcio
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

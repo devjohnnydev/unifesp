@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Como Funciona - TeleAcolhe{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="page-header">
+            <h1>Como Funciona o TeleAcolhe</h1>
+            <p class="lead">Entenda como nossa plataforma pode ajudar voc\u00ea</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Processo Simples em 3 Passos</h2>
+            
+            <div class="steps-detailed">
+                <div class="step-detailed">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Descreva Seus Sintomas</h3>
+                        <p>
+                            Preencha um formul\u00e1rio simples e intuitivo com informa\u00e7\u00f5es sobre:
+                        </p>
+                        <ul>
+                            <li>Idade e sexo</li>
+                            <li>Descri\u00e7\u00e3o detalhada dos sintomas</li>
+                            <li>H\u00e1 quanto tempo os sintomas come\u00e7aram</li>
+                            <li>Intensidade dos sintomas</li>
+                            <li>Informa\u00e7\u00f5es adicionais relevantes (opcional)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-detailed">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>An\u00e1lise por Intelig\u00eancia Artificial</h3>
+                        <p>
+                            Nossa IA processa suas informa\u00e7\u00f5es e:
+                        </p>
+                        <ul>
+                            <li>Compara com um vasto banco de dados m\u00e9dico</li>
+                            <li>Identifica poss\u00edveis condi\u00e7\u00f5es relacionadas aos sintomas</li>
+                            <li>Considera fatores demogr\u00e1ficos e contextuais</li>
+                            <li>Gera diagn\u00f3sticos diferenciais prov\u00e1veis</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-detailed">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Receba Orienta\u00e7\u00f5es Personalizadas</h3>
+                        <p>
+                            Voc\u00ea recebe um relat\u00f3rio completo com:
+                        </p>
+                        <ul>
+                            <li>Poss\u00edveis condi\u00e7\u00f5es (com probabilidade e severidade)</li>
+                            <li>Recomenda\u00e7\u00f5es de cuidados gerais</li>
+                            <li>Sinais de alerta para procurar atendimento imediato</li>
+                            <li>Orienta\u00e7\u00f5es sobre quando buscar ajuda m\u00e9dica</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Para Quem \u00e9 o TeleAcolhe?</h2>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <i data-feather="map-pin" aria-hidden="true"></i>
+                    <h3>Regi\u00f5es Remotas</h3>
+                    <p>Pessoas em \u00e1reas com baixa cobertura m\u00e9dica ou dif\u00edcil acesso a servi\u00e7os de sa\u00fade.</p>
+                </div>
+                <div class="audience-card">
+                    <i data-feather="clock" aria-hidden="true"></i>
+                    <h3>Orienta\u00e7\u00e3o Inicial</h3>
+                    <p>Quem precisa de uma orienta\u00e7\u00e3o inicial antes de decidir procurar um m\u00e9dico.</p>
+                </div>
+                <div class="audience-card">
+                    <i data-feather="heart" aria-hidden="true"></i>
+                    <h3>Situa\u00e7\u00f5es de D\u00favida</h3>
+                    <p>Pessoas que querem entender melhor seus sintomas e quando buscar ajuda profissional.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section disclaimer-section">
+            <div class="disclaimer-box disclaimer-important">
+                <i data-feather="alert-triangle" aria-hidden="true"></i>
+                <div>
+                    <h3>Limita\u00e7\u00f5es Importantes</h3>
+                    <p><strong>O TeleAcolhe N\u00c3O:</strong></p>
+                    <ul>
+                        <li>Substitui consulta m\u00e9dica presencial</li>
+                        <li>Fornece diagn\u00f3sticos definitivos</li>
+                        <li>Prescreve medicamentos ou tratamentos</li>
+                        <li>Substitui exames m\u00e9dicos ou laboratoriais</li>
+                        <li>Atende emerg\u00eancias m\u00e9dicas</li>
+                    </ul>
+                    <p class="mt-3">
+                        <strong>Sempre procure um profissional de sa\u00fade qualificado</strong> para diagn\u00f3stico e tratamento adequados.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>Pronto para Come\u00e7ar?</h2>
+            <a href="{{ url_for('symptoms_form') }}" class="btn btn-primary btn-lg">
+                <i data-feather="arrow-right" aria-hidden="true"></i>
+                Descrever Meus Sintomas
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

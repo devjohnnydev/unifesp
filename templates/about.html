@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}Sobre - TeleAcolhe{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="page-header">
+            <h1>Sobre o TeleAcolhe</h1>
+            <p class="lead">Nossa miss\u00e3o \u00e9 democratizar o acesso \u00e0 informa\u00e7\u00e3o m\u00e9dica de qualidade</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Nossa Miss\u00e3o</h2>
+            <p>
+                O TeleAcolhe foi criado com o objetivo de oferecer apoio inicial em sa\u00fade para pessoas 
+                em regi\u00f5es com baixa cobertura m\u00e9dica. Acreditamos que todos merecem acesso a 
+                orienta\u00e7\u00f5es de sa\u00fade de qualidade, independentemente de sua localiza\u00e7\u00e3o geogr\u00e1fica 
+                ou condi\u00e7\u00e3o socioecon\u00f4mica.
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2>O Problema que Estamos Resolvendo</h2>
+            <p>
+                Milh\u00f5es de brasileiros vivem em \u00e1reas com acesso limitado a servi\u00e7os de sa\u00fade. 
+                Muitas vezes, uma simples d\u00favida sobre sintomas pode levar horas de viagem at\u00e9 
+                o posto de sa\u00fade mais pr\u00f3ximo. O TeleAcolhe oferece:
+            </p>
+            <ul class="feature-list">
+                <li>
+                    <i data-feather="check-circle" aria-hidden="true"></i>
+                    <strong>Acesso imediato:</strong> Orienta\u00e7\u00f5es dispon\u00edveis 24/7
+                </li>
+                <li>
+                    <i data-feather="check-circle" aria-hidden="true"></i>
+                    <strong>Sem custos:</strong> Servi\u00e7o gratuito para todos
+                </li>
+                <li>
+                    <i data-feather="check-circle" aria-hidden="true"></i>
+                    <strong>Linguagem acess\u00edvel:</strong> Informa\u00e7\u00f5es claras e compreens\u00edveis
+                </li>
+                <li>
+                    <i data-feather="check-circle" aria-hidden="true"></i>
+                    <strong>Mobile-first:</strong> Otimizado para celulares e conex\u00f5es lentas
+                </li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Tecnologia e Seguran\u00e7a</h2>
+            <p>
+                Utilizamos intelig\u00eancia artificial avan\u00e7ada baseada em conhecimento m\u00e9dico 
+                reconhecido e diretrizes de organiza\u00e7\u00f5es como OMS e Minist\u00e9rio da Sa\u00fade. 
+                Nosso sistema:
+            </p>
+            <ul class="feature-list">
+                <li>
+                    <i data-feather="shield" aria-hidden="true"></i>
+                    <strong>Privacidade:</strong> Seus dados s\u00e3o protegidos e n\u00e3o s\u00e3o compartilhados
+                </li>
+                <li>
+                    <i data-feather="shield" aria-hidden="true"></i>
+                    <strong>Confiabilidade:</strong> Baseado em fontes m\u00e9dicas confi\u00e1veis
+                </li>
+                <li>
+                    <i data-feather="shield" aria-hidden="true"></i>
+                    <strong>Transpar\u00eancia:</strong> Sempre deixamos claro as limita\u00e7\u00f5es do sistema
+                </li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Compromisso com Acessibilidade</h2>
+            <p>
+                O TeleAcolhe foi desenvolvido seguindo as diretrizes de acessibilidade WCAG 2.1 AA, 
+                garantindo que pessoas com diferentes habilidades possam utilizar a plataforma:
+            </p>
+            <ul class="feature-list">
+                <li>
+                    <i data-feather="eye" aria-hidden="true"></i>
+                    Alto contraste e fontes leg\u00edveis
+                </li>
+                <li>
+                    <i data-feather="smartphone" aria-hidden="true"></i>
+                    Touch targets grandes para facilitar a navega\u00e7\u00e3o em dispositivos m\u00f3veis
+                </li>
+                <li>
+                    <i data-feather="volume-2" aria-hidden="true"></i>
+                    Compat\u00edvel com leitores de tela
+                </li>
+                <li>
+                    <i data-feather="zap" aria-hidden="true"></i>
+                    Otimizado para conex\u00f5es lentas (3G)
+                </li>
+            </ul>
+        </div>
+
+        <div class="content-section disclaimer-section">
+            <div class="disclaimer-box disclaimer-important">
+                <i data-feather="alert-triangle" aria-hidden="true"></i>
+                <div>
+                    <h3>Aviso M\u00e9dico Importante</h3>
+                    <p>
+                        O TeleAcolhe \u00e9 uma ferramenta de <strong>orienta\u00e7\u00e3o inicial</strong> e 
+                        <strong>N\u00c3O substitui</strong> consulta, diagn\u00f3stico ou tratamento m\u00e9dico profissional.
+                    </p>
+                    <p>
+                        Sempre procure um m\u00e9dico ou outro profissional de sa\u00fade qualificado para 
+                        quest\u00f5es relacionadas \u00e0 sua sa\u00fade. Em caso de emerg\u00eancia, ligue 192 (SAMU) 
+                        ou 193 (Bombeiros).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>Comece Agora</h2>
+            <p>Descreva seus sintomas e receba orienta\u00e7\u00f5es em minutos.</p>
+            <a href="{{ url_for('symptoms_form') }}" class="btn btn-primary btn-lg">
+                <i data-feather="arrow-right" aria-hidden="true"></i>
+                Descrever Sintomas
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
