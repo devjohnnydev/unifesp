@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TeleAcolhe - Apoio a diagn\u00f3sticos diferenciais via IA para regi\u00f5es com baixa cobertura m\u00e9dica">
-    <title>{% block title %}TeleAcolhe - Apoio M\u00e9dico Acess\u00edvel{% endblock %}</title>
+    <meta name="description" content="TeleAcolhe - Apoio a diagnósticos diferenciais via IA para regiões com baixa cobertura médica">
+    <title>{% block title %}TeleAcolhe - Apoio Médico Acessível{% endblock %}</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,65 +20,65 @@
     {% block extra_head %}{% endblock %}
 </head>
 <body>
-    <!-- Aviso de emerg\u00eancia -->
+    <!-- Aviso de emergência -->
     <div class="emergency-banner" role="alert" aria-live="polite">
         <div class="container">
             <p>
                 <i data-feather="alert-circle" aria-hidden="true"></i>
-                <strong>Em caso de emerg\u00eancia:</strong> Ligue 192 (SAMU) ou 193 (Bombeiros)
+                <strong>Em caso de emergência:</strong> Ligue 192 (SAMU) ou 193 (Bombeiros)
             </p>
         </div>
     </div>
 
-    <!-- Navega\u00e7\u00e3o -->
+    <!-- Navegação -->
     <header class="header" role="banner">
-        <nav class="navbar container" role="navigation" aria-label="Navega\u00e7\u00e3o principal">
+        <nav class="navbar container" role="navigation" aria-label="Navegação principal">
             <div class="navbar-brand">
-                <a href="{{ url_for('index') }}" class="logo" aria-label="TeleAcolhe - P\u00e1gina inicial">
+                <a href="{{ url_for('main.index') }}" class="logo" aria-label="TeleAcolhe - Página inicial">
                     <i data-feather="heart" aria-hidden="true"></i>
                     <span>TeleAcolhe</span>
                 </a>
             </div>
             
-            <button class="navbar-toggle" id="navbarToggle" aria-label="Abrir menu de navega\u00e7\u00e3o" aria-expanded="false" aria-controls="navbarMenu">
+            <button class="navbar-toggle" id="navbarToggle" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="navbarMenu">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
             
             <ul class="navbar-menu" id="navbarMenu" role="menubar">
-                <li role="none"><a href="{{ url_for('index') }}" role="menuitem">In\u00edcio</a></li>
-                <li role="none"><a href="{{ url_for('how_it_works') }}" role="menuitem">Como Funciona</a></li>
-                <li role="none"><a href="{{ url_for('about') }}" role="menuitem">Sobre</a></li>
-                <li role="none"><a href="{{ url_for('symptoms_form') }}" class="btn-nav" role="menuitem">Descrever Sintomas</a></li>
+                <li role="none"><a href="{{ url_for('main.index') }}" role="menuitem">Início</a></li>
+                <li role="none"><a href="{{ url_for('main.how_it_works') }}" role="menuitem">Como Funciona</a></li>
+                <li role="none"><a href="{{ url_for('main.about') }}" role="menuitem">Sobre</a></li>
+                <li role="none"><a href="{{ url_for('main.symptoms_form') }}" class="btn-nav" role="menuitem">Descrever Sintomas</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Conte\u00fado principal -->
+    <!-- Conteúdo principal -->
     <main role="main">
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Rodap\u00e9 -->
+    <!-- Rodapé -->
     <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-section">
                     <h3>Sobre o TeleAcolhe</h3>
-                    <p>Plataforma de apoio a diagn\u00f3sticos diferenciais com foco em acessibilidade e impacto social.</p>
+                    <p>Plataforma de apoio a diagnósticos diferenciais com foco em acessibilidade e impacto social.</p>
                 </div>
                 
                 <div class="footer-section">
-                    <h3>Links \u00dateis</h3>
+                    <h3>Links Úteis</h3>
                     <ul>
-                        <li><a href="{{ url_for('how_it_works') }}">Como Funciona</a></li>
-                        <li><a href="{{ url_for('about') }}">Sobre</a></li>
+                        <li><a href="{{ url_for('main.how_it_works') }}">Como Funciona</a></li>
+                        <li><a href="{{ url_for('main.about') }}">Sobre</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
-                    <h3>Emerg\u00eancia</h3>
+                    <h3>Emergência</h3>
                     <ul>
                         <li><strong>SAMU:</strong> 192</li>
                         <li><strong>Bombeiros:</strong> 193</li>
@@ -88,7 +88,7 @@
                 
                 <div class="footer-section">
                     <h3>Importante</h3>
-                    <p class="disclaimer">Esta plataforma <strong>N\u00c3O substitui</strong> consulta m\u00e9dica presencial. Sempre procure um profissional de sa\u00fade.</p>
+                    <p class="disclaimer">Esta plataforma <strong>NÃO substitui</strong> consulta médica presencial. Sempre procure um profissional de saúde.</p>
                 </div>
             </div>
             

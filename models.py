@@ -1,12 +1,15 @@
-from app import db
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+
+# Instância global do SQLAlchemy
+db = SQLAlchemy()
 
 
 class Consultation(db.Model):
-    """Modelo para armazenar consultas realizadas pelos usu\u00e1rios"""
+    """Modelo para armazenar consultas realizadas pelos usuários"""
     id = db.Column(db.Integer, primary_key=True)
     
-    # Dados demogr\u00e1ficos
+    # Dados demográficos
     age = db.Column(db.Integer, nullable=False)
     sex = db.Column(db.String(20), nullable=False)
     
@@ -16,7 +19,7 @@ class Consultation(db.Model):
     intensity = db.Column(db.String(20), nullable=False)
     additional_info = db.Column(db.Text)
     
-    # Diagn\u00f3stico gerado pela IA
+    # Diagnóstico gerado pela IA
     diagnosis_result = db.Column(db.Text)
     
     # Metadados
