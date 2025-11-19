@@ -88,8 +88,12 @@ Por favor, analise estes sintomas e forneça diagnósticos diferenciais prováve
             max_completion_tokens=2048
         )
         
-        result = json.loads(response.choices[0].message.content)
-        return result
+        content = response.choices[0].message.content
+        if content:
+            result = json.loads(content)
+            return result
+        else:
+            raise ValueError("Empty response from AI")
         
     except Exception as e:
         print(f"Erro ao analisar sintomas: {e}")
