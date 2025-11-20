@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="TeleAcolhe - Apoio a diagnósticos diferenciais via IA para regiões com baixa cobertura médica">
     <title>{% block title %}TeleAcolhe - Apoio Médico Acessível{% endblock %}</title>
-    
+
+    <!-- Favicon exclusivo TeleAcolhe (SVG) -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/teleacolhe-favicon.svg') }}">
+    <!-- (Opcional) Futuro favicon PNG, se quiser gerar depois
+    <link rel="alternate icon" type="image/png" href="{{ url_for('static', filename='img/teleacolhe-favicon.png') }}">
+    -->
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -93,7 +99,11 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2025 TeleAcolhe. Desenvolvido com <i data-feather="heart" style="width: 16px; height: 16px; color: #e74c3c;" aria-hidden="true"></i> para comunidades.</p>
+                <p>
+                    &copy; 2025 TeleAcolhe. Desenvolvido com 
+                    <i data-feather="heart" style="width: 16px; height: 16px; color: #e74c3c;" aria-hidden="true"></i>
+                    para comunidades.
+                </p>
             </div>
         </div>
     </footer>

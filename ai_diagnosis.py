@@ -1,14 +1,9 @@
-"""
-Módulo de diagnóstico diferencial usando IA (Groq)
-Utiliza modelos da Groq (ex: Llama 3) para analisar sintomas e sugerir diagnósticos diferenciais.
-"""
-
 import os
 import json
 from dotenv import load_dotenv
 from groq import Groq
 
-# Carrega variáveis do .env
+# Carrega variáveis .env
 load_dotenv()
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
@@ -16,108 +11,102 @@ GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.1-70b-versatile")
 
 if not GROQ_API_KEY:
     raise RuntimeError(
-        "A variável de ambiente GROQ_API_KEY não foi encontrada.\n"
-        "Verifique se o arquivo .env está na mesma pasta do app.py "
-        "e se contém a linha:\n\nGROQ_API_KEY=SUACHAVEAQUI\n"
+        "A variável GROQ_API_KEY não foi encontrada.\n"
+        "Defina no .env ou nas variáveis do Render."
     )
 
-# Cliente da Groq
 groq_client = Groq(api_key=GROQ_API_KEY)
 
+# Prompt rígido para forçar JSON válido
+SYSTEM_PROMPT = """
+Você é um assistente médico de triagem. Sua resposta DEVE ser exclusivamente JSON válido.
 
-def analyze_symptoms(age, sex, symptoms, duration, intensity, additional_info=""):
-    """
-    Analisa sintomas e retorna diagnósticos diferenciais prováveis.
+FORMATO OBRIGATÓRIO DA RESPOSTA:
 
-    Args:
-        age: Idade do paciente
-        sex: Sexo do paciente
-        symptoms: Descrição dos sintomas
-        duration: Duração dos sintomas
-        intensity: Intensidade dos sintomas
-        additional_info: Informações adicionais (condições pré-existentes, etc)
-
-    Returns:
-        dict com diagnósticos diferenciais e recomendações
-        (conforme o formato esperado pela aplicação)
-    """
-
-    system_prompt = """Você é um assistente médico especializado em triagem inicial e diagnóstico diferencial.
-Sua função é ajudar pessoas em regiões com baixa cobertura médica a entender seus sintomas.
-
-IMPORTANTE: 
-- Sempre enfatize que isto NÃO substitui consulta médica presencial
-- Foque em orientações gerais de saúde e sinais de alerta
-- Use linguagem simples e acessível
-- Considere condições comuns e prevalentes no Brasil
-- Sempre recomende procurar atendimento médico quando necessário
-
-Responda em JSON com este formato exato:
 {
   "diagnoses": [
     {
-      "name": "Nome da condição",
-      "probability": "alta/média/baixa",
-      "description": "Descrição breve e clara",
-      "severity": "leve/moderada/grave"
+      "name": "...",
+      "probability": "alta|média|baixa",
+      "description": "...",
+      "severity": "leve|moderada|grave"
     }
   ],
   "recommendations": [
-    "Recomendação 1",
-    "Recomendação 2"
+    "texto"
   ],
   "warning_signs": [
-    "Sinal de alerta 1",
-    "Sinal de alerta 2"
+    "texto"
   ],
-  "seek_immediate_care": true/false,
-  "general_advice": "Conselho geral de cuidados"
-}"""
+  "seek_immediate_care": true,
+  "general_advice": "texto"
+}
 
-    additional_info_line = ""
-    if additional_info:
-        additional_info_line = f"- Informações adicionais: {additional_info}"
+NÃO ESCREVA NADA FORA DO JSON.
+NÃO USE COMENTÁRIOS.
+NÃO USE TEXTO LIVRE ANTES OU DEPOIS DO JSON.
+SOMENTE JSON PURO.
+"""
 
-    user_prompt = f"""Paciente com as seguintes características:
-- Idade: {age} anos
+
+def extract_json(text):
+    """Extrai JSON mesmo se o modelo enviar texto fora do JSON."""
+    try:
+        return json.loads(text)
+    except:
+        # tenta capturar o JSON entre { ... }
+        try:
+            start = text.index("{")
+            end = text.rindex("}") + 1
+            return json.loads(text[start:end])
+        except Exception:
+            raise ValueError("Não foi possível extrair JSON da resposta do modelo.")
+
+
+def analyze_symptoms(age, sex, symptoms, duration, intensity, additional_info=""):
+
+    additional_info_line = (
+        f"- Informações adicionais: {additional_info}" if additional_info else ""
+    )
+
+    user_prompt = f"""
+Paciente:
+- Idade: {age}
 - Sexo: {sex}
 - Sintomas: {symptoms}
 - Duração: {duration}
 - Intensidade: {intensity}
 {additional_info_line}
 
-Por favor, analise estes sintomas e forneça diagnósticos diferenciais prováveis com recomendações."""
+Gere o JSON conforme as regras.
+"""
 
     try:
-        completion = groq_client.chat.completions.create(
+        response = groq_client.chat.completions.create(
             model=GROQ_MODEL,
             messages=[
-                {"role": "system", "content": system_prompt},
+                {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": user_prompt},
             ],
-            # Alguns modelos da Groq suportam JSON estruturado nesse formato
-            response_format={"type": "json_object"},
-            max_output_tokens=2048,
             temperature=0.2,
+            max_tokens=1200,
         )
 
-        content = completion.choices[0].message.content
-        if not content:
-            raise ValueError("Resposta vazia da API Groq.")
+        content = response.choices[0].message.content
 
-        result = json.loads(content)
+        print("\n===== RESPOSTA BRUTA DO GROQ =====")
+        print(content)
+        print("==================================\n")
+
+        result = extract_json(content)
         return result
 
     except Exception as e:
-        # LOG detalhado no terminal para debug
         print("\n" + "=" * 60)
-        print("Erro ao analisar sintomas com Groq:")
-        print(f"Tipo: {type(e)}")
-        print(f"Detalhes: {e}")
-        print("Modelo usado:", GROQ_MODEL)
+        print("Erro ao analisar sintomas:")
+        print(e)
         print("=" * 60 + "\n")
 
-        # Fallback: estrutura padrão de erro, para não quebrar o template
         return {
             "diagnoses": [
                 {
@@ -125,16 +114,16 @@ Por favor, analise estes sintomas e forneça diagnósticos diferenciais prováve
                     "probability": "desconhecida",
                     "description": (
                         "Não foi possível processar sua solicitação no momento. "
-                        "Por favor, tente novamente em alguns minutos."
+                        "Pode ser falha na API ou resposta inválida."
                     ),
                     "severity": "desconhecida",
                 }
             ],
             "recommendations": [
-                "Tente novamente mais tarde.",
-                "Se os sintomas persistirem, procure atendimento médico presencial."
+                "Tente novamente em alguns instantes.",
+                "Se houver preocupação, procure atendimento presencial.",
             ],
             "warning_signs": [],
             "seek_immediate_care": False,
-            "general_advice": "Em caso de dúvida, sempre procure atendimento médico."
+            "general_advice": "Em caso de dúvida, procure atendimento médico.",
         }

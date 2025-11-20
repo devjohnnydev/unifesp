@@ -6,42 +6,48 @@
 <section class="section">
     <div class="container">
         <div class="results-container">
+
             <div class="results-header">
                 <h1>Resultados da Análise</h1>
                 <p>Baseado nas informações fornecidas, veja abaixo os diagnósticos diferenciais prováveis.</p>
             </div>
 
-            <!-- Aviso de buscar atendimento imediato -->
+            <!-- Atendimento imediato -->
             {% if diagnosis.seek_immediate_care %}
             <div class="alert alert-danger" role="alert">
-                <i data-feather="alert-octagon" aria-hidden="true"></i>
+                <i data-feather="alert-octagon"></i>
                 <div>
                     <h3>Atenção: Procure Atendimento Médico Imediatamente</h3>
-                    <p>Com base nos sintomas descritos, recomendamos que você procure atendimento médico presencial o mais rápido possível.</p>
+                    <p>Com base nos sintomas descritos, recomendamos busca imediata de atendimento presencial.</p>
                 </div>
             </div>
             {% endif %}
 
-            <!-- Diagnósticos Diferenciais -->
+            <!-- Diagnósticos -->
             <div class="section-block">
                 <h2>
-                    <i data-feather="activity" aria-hidden="true"></i>
+                    <i data-feather="activity"></i>
                     Possíveis Condições
                 </h2>
-                
+
                 <div class="diagnoses-grid">
                     {% for diag in diagnosis.diagnoses %}
-                    <div class="diagnosis-card severity-{{ diag.severity }}">
+                    <div class="diagnosis-card severity-{{ diag.severity|lower|replace('á', 'a')|replace('é', 'e')|replace('í', 'i')|replace('ó','o')|replace('ú','u') }}">
                         <div class="diagnosis-header">
                             <h3>{{ diag.name }}</h3>
-                            <span class="probability-badge probability-{{ diag.probability }}">
+
+                            <span class="probability-badge probability-{{ diag.probability|lower|replace('á', 'a')|replace('é', 'e')|replace('í','i')|replace('ó','o')|replace('ú','u') }}">
                                 Probabilidade: {{ diag.probability }}
                             </span>
                         </div>
+
                         <p class="diagnosis-description">{{ diag.description }}</p>
+
                         <div class="severity-indicator">
                             <span class="severity-label">Severidade:</span>
-                            <span class="severity-value severity-{{ diag.severity }}">{{ diag.severity }}</span>
+                            <span class="severity-value">
+                                {{ diag.severity }}
+                            </span>
                         </div>
                     </div>
                     {% endfor %}
@@ -49,33 +55,38 @@
             </div>
 
             <!-- Recomendações -->
+            {% if diagnosis.recommendations %}
             <div class="section-block">
                 <h2>
-                    <i data-feather="check-circle" aria-hidden="true"></i>
+                    <i data-feather="check-circle"></i>
                     Recomendações
                 </h2>
+
                 <ul class="recommendations-list">
                     {% for recommendation in diagnosis.recommendations %}
                     <li>
-                        <i data-feather="check" aria-hidden="true"></i>
+                        <i data-feather="check"></i>
                         {{ recommendation }}
                     </li>
                     {% endfor %}
                 </ul>
             </div>
+            {% endif %}
 
-            <!-- Sinais de Alerta -->
+            <!-- Sinais de alerta -->
             {% if diagnosis.warning_signs %}
             <div class="section-block">
                 <h2>
-                    <i data-feather="alert-triangle" aria-hidden="true"></i>
+                    <i data-feather="alert-triangle"></i>
                     Sinais de Alerta
                 </h2>
+
                 <p class="warning-intro">Procure atendimento médico imediatamente se apresentar:</p>
+
                 <ul class="warning-list">
                     {% for warning in diagnosis.warning_signs %}
                     <li>
-                        <i data-feather="alert-circle" aria-hidden="true"></i>
+                        <i data-feather="alert-circle"></i>
                         {{ warning }}
                     </li>
                     {% endfor %}
@@ -83,11 +94,11 @@
             </div>
             {% endif %}
 
-            <!-- Conselho Geral -->
+            <!-- Conselho geral -->
             {% if diagnosis.general_advice %}
             <div class="section-block advice-block">
                 <h2>
-                    <i data-feather="info" aria-hidden="true"></i>
+                    <i data-feather="info"></i>
                     Conselho Geral
                 </h2>
                 <p>{{ diagnosis.general_advice }}</p>
@@ -96,30 +107,29 @@
 
             <!-- Disclaimer -->
             <div class="disclaimer-box disclaimer-important" role="note">
-                <i data-feather="alert-triangle" aria-hidden="true"></i>
+                <i data-feather="alert-triangle"></i>
                 <div>
                     <h3>Importante: Este NÃO é um Diagnóstico Médico</h3>
                     <p>
-                        As informações fornecidas são apenas orientações iniciais baseadas em inteligência artificial 
-                        e <strong>NÃO substituem</strong> uma consulta médica presencial com um profissional de saúde qualificado.
+                        As informações fornecidas são orientações iniciais baseadas em IA
+                        e <strong>NÃO substituem</strong> consulta com um profissional de saúde.
                     </p>
-                    <p>
-                        <strong>Sempre procure um médico</strong> para obter um diagnóstico preciso e tratamento adequado.
-                    </p>
+                    <p><strong>Sempre consulte um médico</strong> para diagnóstico preciso.</p>
                 </div>
             </div>
 
-            <!-- Ações -->
+            <!-- Botões -->
             <div class="results-actions">
                 <a href="{{ url_for('main.symptoms_form') }}" class="btn btn-secondary">
-                    <i data-feather="rotate-ccw" aria-hidden="true"></i>
+                    <i data-feather="rotate-ccw"></i>
                     Nova Consulta
                 </a>
                 <a href="{{ url_for('main.index') }}" class="btn btn-outline">
-                    <i data-feather="home" aria-hidden="true"></i>
+                    <i data-feather="home"></i>
                     Voltar ao Início
                 </a>
             </div>
+
         </div>
     </div>
 </section>
