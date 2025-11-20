@@ -1,20 +1,28 @@
+"""
+Módulo de diagnóstico diferencial usando IA (Groq)
+Utiliza modelos da Groq (ex: Llama 3.3) para analisar sintomas.
+"""
+
 import os
 import json
 from dotenv import load_dotenv
 from groq import Groq
 
-# Carrega variáveis .env
+# Carrega variáveis do .env (em desenvolvimento local)
 load_dotenv()
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.1-70b-versatile")
+# Se não tiver GROQ_MODEL no ambiente, usa Llama 3.3 direto
+GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 
 if not GROQ_API_KEY:
     raise RuntimeError(
-        "A variável GROQ_API_KEY não foi encontrada.\n"
-        "Defina no .env ou nas variáveis do Render."
+        "A variável de ambiente GROQ_API_KEY não foi encontrada.\n"
+        "Defina no arquivo .env (para rodar localmente) OU "
+        "nas variáveis de ambiente do Render."
     )
 
+# Cliente da Groq
 groq_client = Groq(api_key=GROQ_API_KEY)
 
 # Prompt rígido para forçar JSON válido
@@ -49,12 +57,11 @@ SOMENTE JSON PURO.
 """
 
 
-def extract_json(text):
-    """Extrai JSON mesmo se o modelo enviar texto fora do JSON."""
+def extract_json(text: str) -> dict:
+    """Tenta extrair JSON mesmo se vier texto fora do objeto."""
     try:
         return json.loads(text)
-    except:
-        # tenta capturar o JSON entre { ... }
+    except Exception:
         try:
             start = text.index("{")
             end = text.rindex("}") + 1
@@ -64,6 +71,9 @@ def extract_json(text):
 
 
 def analyze_symptoms(age, sex, symptoms, duration, intensity, additional_info=""):
+    """
+    Analisa sintomas e retorna diagnósticos diferenciais prováveis.
+    """
 
     additional_info_line = (
         f"- Informações adicionais: {additional_info}" if additional_info else ""
@@ -90,11 +100,14 @@ Gere o JSON conforme as regras.
             ],
             temperature=0.2,
             max_tokens=1200,
+            # ajuda a forçar JSON estruturado em alguns modelos
+            response_format={"type": "json_object"},
         )
 
         content = response.choices[0].message.content
 
         print("\n===== RESPOSTA BRUTA DO GROQ =====")
+        print("Modelo:", GROQ_MODEL)
         print(content)
         print("==================================\n")
 
@@ -102,11 +115,17 @@ Gere o JSON conforme as regras.
         return result
 
     except Exception as e:
+        import traceback
+
         print("\n" + "=" * 60)
-        print("Erro ao analisar sintomas:")
-        print(e)
+        print("Erro ao analisar sintomas com Groq:")
+        print("Tipo:", type(e))
+        print("Detalhes:", e)
+        print("Modelo usado:", GROQ_MODEL)
+        traceback.print_exc()
         print("=" * 60 + "\n")
 
+        # Fallback para a tela de resultados não quebrar
         return {
             "diagnoses": [
                 {
